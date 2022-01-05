@@ -1,24 +1,31 @@
-# README
+# <家計簿(仮)>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+<共働き夫婦向け共通財布専用の家計簿アプリです。>
 
-Things you may want to cover:
+### サイトテーマ
+<共働きの夫婦の共通財布の管理をもっと簡単に分かりやすく。>
 
-* Ruby version
+### テーマを選んだ理由
+<私自身が共働きの夫婦で、今は2つの家計簿アプリを使い自分の家計簿と共通財布の家計簿を分けて記録しております。
+立替が発生した時には2つのアプリに重複して記録が必要など、手間が多いため簡素化したいと考えておりました。
+そのため、共通財布と個人の財布を2人で一緒に管理できるアプリがあれば普段の手間が省けると思い、このテーマにしました。>
 
-* System dependencies
+### ターゲットユーザ
+<夫婦共働きで共通財布で家計を管理している夫婦。>
 
-* Configuration
+### 主な利用シーン
+<日々の家計管理のため。立替が発生した時の相殺精算の簡素化のため。>
 
-* Database creation
+## 設計書
+<...>
 
-* Database initialization
+## チャレンジ要素一覧
+<https://docs.google.com/spreadsheets/d/17nvqqKv6eTfOdgV5LykkU0LHLFkkFd4qd4SwsoHHNTM/edit?usp=sharing>
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
