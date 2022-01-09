@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+  @import "bootstrap";
+  @import 'font-awesome-sprockets';
+  @import 'font-awesome';
+  
+  // デプロイ開発準備　画像表記
+  // body {
+  // background-image: image-url("hoge.jpg");
+  // }
