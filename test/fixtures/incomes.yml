@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  family_id: 1
+  price: 1
+  date: 2022-01-09
+  memo: MyText
+
+two:
+  user_id: 1
+  family_id: 1
+  price: 1
+  date: 2022-01-09
+  memo: MyText
