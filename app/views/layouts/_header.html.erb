@@ -1,0 +1,26 @@
+<header>
+  <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+  <label for="openSidebarMenu" class="sidebarIconToggle">
+    <div class="spinner diagonal part-1"></div>
+    <div class="spinner horizontal"></div>
+    <div class="spinner diagonal part-2"></div>
+  </label>
+  <div id="sidebarMenu">
+    <ul class="sidebarMenuInner">
+      <% if user_signed_in? %>
+          <li><%= link_to 'ホーム',profile_path,class: ' nav-link text-body' %></li>
+          <li><%= link_to '明細',pays_path,class: ' nav-link text-body' %></li>
+          <li><%= link_to '精算',reimbursements_path ,class: 'nav-link text-body'%></li>
+          <li><%= link_to '分析', budgets_path,class: 'nav-link text-body' %></li>
+          <li><%= link_to '家族情報', families_path,class: 'nav-link text-body' %></li>
+          <li><%= link_to '支出カテゴリー', categories_path,class: 'nav-link text-body' %></li>
+          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class: 'nav-link text-body' %></li>
+
+      <% else %>
+          <li><%= link_to 'トップページ',root_path,class: 'nav-link text-body' %></li>
+          <li><%= link_to 'ログイン',new_user_session_path,class: 'nav-link text-body' %></li>
+          <li><%= link_to '新規登録', new_user_registration_path,class: 'nav-link text-body text-body' %></li>
+      <% end %>
+    </ul>
+  </div>
+  </header>
