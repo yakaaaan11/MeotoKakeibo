@@ -30,7 +30,8 @@ Rails.application.routes.draw do
 
   resource :deposits, only: [:new,:create]
 
-  resources :categories, only: [:index,:create,:edit,:update,:destroy ]
+  resources :categories, only: [:index,:show ]
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
