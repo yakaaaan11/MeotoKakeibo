@@ -69,8 +69,11 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem "chartkick"
 gem "devise-i18n"
+gem 'devise-i18n-views'
+gem 'rails-i18n', '~> 5.1'
 gem 'bootstrap', '~> 4.5'
 gem "jquery-rails"
+
 
 # MySQL、環境変数
 gem 'dotenv-rails'

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Kakeibo</title>
+    <title>MeotoKakeibo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,8 +10,13 @@
   </head>
 
   <body>
-    <!--<p class="notice"><= notice %></p>-->
-    <!--<p class="alert"><= alert %></p>-->
-    <%= yield %>
+    <%= render "layouts/header" %>
+
+    <main>
+      <!--<p class="notice"><= notice %></p>-->
+      <!--<p class="alert"><= alert %></p>-->
+      <%= yield %>
+    </main>
+    <%= render "layouts/footer" %>
   </body>
 </html>
