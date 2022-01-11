@@ -1,0 +1,2 @@
+class MiniCategory < ApplicationRecord
+end
