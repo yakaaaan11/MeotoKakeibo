@@ -26,9 +26,9 @@ Rails.application.routes.draw do
 
   resources :families, only: [:index,:new,:create,:edit,:update,:destroy ]
 
-  resources :budgets, only: [:index,:new,:create,:edit,:update, ]
+  resource :budgets, only: [:index,:new,:create,:edit,:update, ]
 
-  resources :deposits, only: [:new,:create]
+  resource :deposits, only: [:new,:create]
 
   resources :categories, only: [:index,:create,:edit,:update,:destroy ]
 
