@@ -1,2 +1,50 @@
-<h1>Pays#edit</h1>
-<p>Find me in app/views/pays/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mainContents col-sm-12 col-sm-push-4 col-md-12 col-md-push-4">
+      <h1 class="subtitle">支出</h1>
+
+      <div class="container form-contents">
+        <%= form_with(model: @pay, url: pay_path, local: true) do |f| %>
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.text_field :price, autofocus: true, autocomplete: "price", class:"form-control", required: true %>
+            </div>
+          </div>
+
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.date_select:date,{} , required: true%>
+            </div>
+          </div>
+
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <!--親カテゴリーのセレクトボックス-->
+              <%= f.collection_select :category_id, @category_parent_array,:id, :name,{ include_blank: "選択してください"},{class:"form-control"}%>
+              <i class=fas.fa-chevron-down.listing-select-wrapper__box--arrow-down></i>
+            </div>
+          </div>
+
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.collection_select :family_id, @families, :id ,:name,{}, {class:"form-control"} %>
+            </div>
+          </div>
+
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.text_field :memo, autofocus: true, autocomplete: "memo", class:"form-control" %>
+            </div>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "登録", class:"form-button" %>
+          </div>
+        <% end %>
+        <div class="actions">
+            <%= link_to "削除",pay_path(@pay),method: :delete,class:"form-button-alert","data-confirm" => "本当に削除しますか？" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

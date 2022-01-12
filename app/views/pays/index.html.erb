@@ -1,2 +1,98 @@
-<h1>Pays#index</h1>
-<p>Find me in app/views/pays/index.html.erb</p>
+<div class="container">
+<h1>入出金明細</h1>
+
+<div>
+  <h2>残高</h2>
+  <h3><%= @balance.to_s(:delimited) %>円</h3>
+
+  <h4><%= @this_month %>月収入</h4>
+  <h5><%= @incomes_month_total.to_s(:delimited) %>円</h5>
+
+  <h4><%= @this_month %>月支出</h4>
+  <h5><%= @pays_month_total.to_s(:delimited) %>円</h5>
+
+  <h4><%= @this_month %>月収支</h4>
+  <h5><%= @balance_month.to_s(:delimited) %>円</h5>
+
+</div>
+
+<div>
+<%= month_calendar events: @balances do |date, balances| %>
+  <%= date.day %>
+
+  <% balances.each do |balance| %>
+    <% if !balance[:category_id].nil? %>
+    <div>
+      <%= link_to -balance.price, edit_pay_path(balance) %>
+    </div>
+    <% else %>
+    <div>
+      <%= link_to balance.price, edit_income_path(balance) %>
+    </div>
+    <% end %>
+  <% end %>
+<% end %>
+</div>
+
+<div class="row">
+  <table class="table">
+    <tr>
+      <th>日にち</th>
+      <th>カテゴリー</th>
+      <th>財布</th>
+      <th>金額</th>
+      <th>メモ</th>
+    </tr>
+    <tbody>
+        <% @balances.each do |balance| %>
+        <% if !balance[:category_id].nil? %>
+            <tr>
+                <td><%= balance.date %></td>
+                <td><%= balance.category.name %></td>
+                <td>
+                  <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+                </td>
+                <td><%= -balance.price %></td>
+                <td><%= balance.memo %></td>
+                <td>
+                    <div class="row">
+                        <div class="actions">
+                            <%= link_to "編集",edit_pay_path(balance),class:"form-button" %>
+                        </div>
+                        <div class="actions">
+                            <%= link_to "削除",pay_path(balance),method: :delete,class:"form-button-alert","data-confirm" => "本当に削除しますか？" %>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+          <% else %>
+            <tr>
+                <td><%= balance.date %></td>
+                <td></td>
+                <td>
+                  <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+                </td>
+                <td><%= balance.price %></td>
+                <td><%= balance.memo %></td>
+                <td>
+                    <div class="row">
+                        <div class="actions">
+                            <%= link_to "編集",edit_income_path(balance),class:"form-button" %>
+                        </div>
+                        <div class="actions">
+                            <%= link_to "削除",income_path(balance),method: :delete,class:"form-button-alert","data-confirm" => "本当に削除しますか？" %>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <% end %>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <%= link_to "新規追加" ,new_pay_path %>
+</div>
+
+</div>
