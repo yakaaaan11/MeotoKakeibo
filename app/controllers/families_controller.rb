@@ -9,6 +9,7 @@ class FamiliesController < ApplicationController
 
   def create
     @family = Family.new(family_params)
+    @family.user_id = current_user.id
     @family.save
     redirect_to families_path
   end

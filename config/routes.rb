@@ -16,7 +16,11 @@ Rails.application.routes.draw do
 
   resources :incomes, only: [:new,:create,:edit,:update,:destroy ]
 
-  resources :pays, only: [:index,:new,:create,:edit,:update,:destroy ]
+  resources :pays, only: [:index,:new,:create,:edit,:update,:destroy ] do
+    member do
+      get "get_category_children", defaults: {fomat: "json"}
+    end
+  end
 
   resources :reimbursements, only: [:index] do
     collection do
@@ -31,7 +35,6 @@ Rails.application.routes.draw do
   resource :deposits, only: [:new,:create]
 
   resources :categories, only: [:index,:show ]
-
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
