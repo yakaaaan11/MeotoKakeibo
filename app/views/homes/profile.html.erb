@@ -1,2 +1,31 @@
-<h1>Homes#about</h1>
-<p>Find me in app/views/homes/about.html.erb</p>
+<div class="container">
+<h1>ホーム</h1>
+
+<div>
+  <h2>口座残高</h2>
+  <%= @balances_total.to_s(:delimited) %>円
+</div>
+<div>
+  <h2>予算対支出棒グラフ</h2>
+  <div class="progress">
+    <% if @budget_month_ratio <= 100%>
+  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
+  <% else %>
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
+  <% end %>
+
+</div>
+</div>
+<div>
+  <h2>支出内訳円グラフ</h2>
+  <%= pie_chart @pays_month_ratio, donut: true, suffix: "円",title:"支出" %>
+
+</div>
+
+<div>
+  <h2>精算</h2>
+</div>
+
+
+
+</div>

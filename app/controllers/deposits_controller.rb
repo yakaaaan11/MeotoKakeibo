@@ -5,6 +5,7 @@ class DepositsController < ApplicationController
 
   def create
     @deposit = Deposit.new(deposit_params)
+    @deposit.user_id = current_user.id
     @deposit.save
     redirect_to profile_path
   end
