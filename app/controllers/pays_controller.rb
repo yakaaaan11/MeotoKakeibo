@@ -1,26 +1,23 @@
 class PaysController < ApplicationController
   def index
+    @today = Date.today
     @pays = current_user.pays.all.order(date: "asc")
     @pays_total = @pays.inject(0) {|sum,pay| sum + pay.price}
-    @incomes = current_user.incomes.all.order(date: "asc")
-    @incomes_total = @incomes.inject(0) {|sum,income| sum + income.price}
-    @budgets = current_user.budgets.all.order(date: "asc")
-    @budgets_total = @budgets.inject(0) {|sum,budget| sum + budget.price}
-    @balance = @budgets_total + @incomes_total - @pays_total
-    # カレンダー収支
-    @balances = @pays + @incomes
-
-    @now = Time.current
-    @this_month = @now.month
-    # 今月ではなく今日になる..
-    @pays_month = current_user.pays.where(date: @now)
+    @pays_month = current_user.pays.where(date: @today.all_month).order(date: "asc")
     @pays_month_total = @pays_month.inject(0) {|sum,pay| sum + pay.price}
 
-    @incomes_month = current_user.incomes.where(date: @now)
+    @incomes = current_user.incomes.all.order(date: "asc")
+    @incomes_total = @incomes.inject(0) {|sum,income| sum + income.price}
+    @incomes_month = current_user.incomes.where(date: @today.all_month).order(date: "asc")
     @incomes_month_total = @incomes_month.inject(0) {|sum,income| sum + income.price}
 
-    @balance_month = @incomes_month_total - @pays_month_total
+    @deposit = current_user.deposit.price
 
+    @balances_total = @deposit+ @incomes_total - @pays_total
+    @balances_month_total = @incomes_month_total - @pays_month_total
+    # カレンダー収支
+    @balances = @pays + @incomes
+    @balances_month = @pays_month + @incomes_month
   end
 
   def new
@@ -70,6 +67,10 @@ class PaysController < ApplicationController
 
   def set_category
     @category_parent_array = Category.where(ancestry: nil)
+  end
+
+  def deposit_params
+    params.require.(:deposit).permit(:user_id,:price)
   end
 
 end

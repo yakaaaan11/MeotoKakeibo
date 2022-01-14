@@ -12,4 +12,3 @@ CSV.foreach("db/category.csv") do |row|
   Category.create(:id => row[0], :name => row[1], :ancestry => row[2])
 end
 
-Family.create!(:name => “食費“)
