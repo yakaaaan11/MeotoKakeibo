@@ -1,2 +1,12 @@
-<h1>分析</h1>
-<p>Find me in app/views/budgets/index.html.erb</p>
+<table>
+<tbody>
+        <% @budgets.each do |budget| %>
+
+            <tr>
+                <td><%= budget.price %></td>
+                <td><%= budget.category.name %></td>
+
+            </tr>
+        <% end %>
+    </tbody>
+  </table>

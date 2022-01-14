@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   resources :families, only: [:index,:new,:create,:edit,:update,:destroy ]
 
-  resource :budgets, only: [:index,:new,:create,:edit,:update, ]
+  resources :budgets, only: [:index,:new,:create,:edit,:update, ]
 
   resource :deposits, only: [:new,:create]
 

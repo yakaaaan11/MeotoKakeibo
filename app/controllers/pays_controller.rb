@@ -4,9 +4,8 @@ class PaysController < ApplicationController
     @pays_total = @pays.inject(0) {|sum,pay| sum + pay.price}
     @incomes = current_user.incomes.all.order(date: "asc")
     @incomes_total = @incomes.inject(0) {|sum,income| sum + income.price}
-    @budgets = current_user.budgets.all.order(date: "asc")
-    @budgets_total = @budgets.inject(0) {|sum,budget| sum + budget.price}
-    @balance = @budgets_total + @incomes_total - @pays_total
+    @deposit = current_user.deposit.price
+    @balance = @deposit+ @incomes_total - @pays_total
     # カレンダー収支
     @balances = @pays + @incomes
 
@@ -70,6 +69,10 @@ class PaysController < ApplicationController
 
   def set_category
     @category_parent_array = Category.where(ancestry: nil)
+  end
+
+  def deposit_params
+    params.require.(:deposit).permit(:user_id,:price)
   end
 
 end
