@@ -1,2 +1,73 @@
+<div class="container">
 <h1>分析</h1>
-<p>Find me in app/views/budgets/index.html.erb</p>
+
+<div>
+  <h2>支出内訳円グラフ</h2>
+  <%= pie_chart @pays_month_ratio, donut: true, suffix: "円",title:"支出" %>
+</div>
+<div>
+  <h2>予算対支出棒グラフ</h2>
+  <div class="progress">
+    <% if @budget_month_ratio <= 100%>
+  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
+  <% else %>
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
+  <% end %>
+  </div>
+    <table>
+      <thead>
+        <tr>
+            <th>カテゴリー</th>
+            <th>支出</th>
+            <th>予算</th>
+            <th>残り使える金額</th>
+
+        </tr>
+    </thead>
+      <tbody>
+         <% @category_parent_array.each do |category| %>
+        <tr>
+
+          <td><h5><%= category.name %></h5></td>
+          <td>
+            <%= category.pays.sum(:price).to_s(:delimited) %>
+          </td>
+          <td>
+            <%= category.budgets.sum(:price).to_s(:delimited) %>
+          </td>
+          <td>
+          <div class="progress">
+          <% if category.budgets.sum(:price) == 0 && category.pays.sum(:price) == 0%>
+          <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%"></div>
+          <% elsif category.budgets.sum(:price) == 0 && category.pays.sum(:price) != 0%>
+          <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%">予算オーバー</div>
+          <% elsif category.budgets_ratio <= 100 %>
+          <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= category.budgets_ratio %>%"></div>
+          <% else %>
+          <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= category.budgets_ratio %>%">予算オーバー</div>
+          <% end %>
+
+          </div>
+          </td>
+          <td>
+            <%= category.budgets_balance.to_s(:delimited)  %>
+          </td>
+
+        </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+
+</div>
+
+
+
+<div>
+  <h2>精算</h2>
+</div>
+
+</div>
+
+
+
