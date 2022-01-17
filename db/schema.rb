@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_123540) do
+ActiveRecord::Schema.define(version: 2022_01_17_102049) do
 
   create_table "budgets", force: :cascade do |t|
     t.integer "user_id"
@@ -35,12 +35,9 @@ ActiveRecord::Schema.define(version: 2022_01_12_123540) do
   end
 
   create_table "families", force: :cascade do |t|
-    t.integer "user_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "gender"
-    t.date "birthday"
     t.string "image_id"
   end
 
@@ -70,6 +67,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_123540) do
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_active", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|

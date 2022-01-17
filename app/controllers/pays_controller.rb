@@ -2,14 +2,14 @@ class PaysController < ApplicationController
   def index
     @today = Date.today
     @pays = current_user.pays.all.order(date: "asc")
-    @pays_total = @pays.inject(0) {|sum,pay| sum + pay.price}
+    @pays_total = @pays.sum(:price)
     @pays_month = current_user.pays.where(date: @today.all_month).order(date: "asc")
-    @pays_month_total = @pays_month.inject(0) {|sum,pay| sum + pay.price}
+    @pays_month_total = @pays_month.sum(:price)
 
     @incomes = current_user.incomes.all.order(date: "asc")
-    @incomes_total = @incomes.inject(0) {|sum,income| sum + income.price}
+    @incomes_total = @incomes.sum(:price)
     @incomes_month = current_user.incomes.where(date: @today.all_month).order(date: "asc")
-    @incomes_month_total = @incomes_month.inject(0) {|sum,income| sum + income.price}
+    @incomes_month_total = @incomes_month.sum(:price)
 
     @deposit = current_user.deposit.price
 
