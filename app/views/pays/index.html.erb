@@ -41,6 +41,7 @@
       <th>カテゴリー</th>
       <th>財布</th>
       <th>金額</th>
+      <th>精算</th>
       <th>メモ</th>
     </tr>
     <tbody>
@@ -53,6 +54,12 @@
                   <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
                 </td>
                 <td><%= -balance.price %></td>
+                <td>
+                  <%= form_with model:@pay, url: pay_path(balance), local: true do |f| %>
+                    <%= f.check_box :is_active, {:checked => true},true,false %>
+                    <%= f.submit "更新" %>
+                  <% end %>
+                </td>
                 <td><%= balance.memo %></td>
                 <td>
                     <div class="row">
@@ -73,6 +80,7 @@
                   <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
                 </td>
                 <td><%= balance.price %></td>
+                <td></td>
                 <td><%= balance.memo %></td>
                 <td>
                     <div class="row">

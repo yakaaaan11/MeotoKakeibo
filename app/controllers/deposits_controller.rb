@@ -7,7 +7,7 @@ class DepositsController < ApplicationController
     @deposit = Deposit.new(deposit_params)
     @deposit.user_id = current_user.id
     @deposit.save
-    redirect_to profile_path
+    redirect_to new_budget_path
   end
 
   private
