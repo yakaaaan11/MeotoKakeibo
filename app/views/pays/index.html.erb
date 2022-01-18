@@ -41,7 +41,7 @@
       <th>カテゴリー</th>
       <th>財布</th>
       <th>金額</th>
-      <th>精算</th>
+      <th>精算<%= link_to "▼", reimbursements_path %></th>
       <th>メモ</th>
     </tr>
     <tbody>
@@ -55,9 +55,12 @@
                 </td>
                 <td><%= -balance.price %></td>
                 <td>
-                  <%= form_with model:@pay, url: pay_path(balance), local: true do |f| %>
-                    <%= f.check_box :is_active, {:checked => true},true,false %>
-                    <%= f.submit "更新" %>
+                  <% if balance.is_active == true %>
+                    <i class="fas fa-check-square"></i>
+                  <% elsif balance.is_active == false && balance.family_id == 1 %>
+                    <i class="fas fa-square"></i>
+                  <% else %>
+                    <i class="far fa-square"></i>
                   <% end %>
                 </td>
                 <td><%= balance.memo %></td>

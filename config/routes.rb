@@ -22,9 +22,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reimbursements, only: [:index] do
+  resources :reimbursements, only: [:index,:update] do
     collection do
-      patch "reimbursement"
+      patch "update_husband"
+      patch "update_wife"
     end
   end
 

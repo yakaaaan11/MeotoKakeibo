@@ -18,6 +18,8 @@ class PaysController < ApplicationController
     # カレンダー収支
     @balances = @pays + @incomes
     @balances_month = @pays_month + @incomes_month
+
+
   end
 
   def new
@@ -62,7 +64,7 @@ class PaysController < ApplicationController
   private
 
   def pay_params
-    params.require(:pay).permit(:user_id,:category_id,:family_id,:price,:date,:memo)
+    params.require(:pay).permit(:user_id,:category_id,:family_id,:price,:date,:memo,:is_active)
   end
 
   def set_category
