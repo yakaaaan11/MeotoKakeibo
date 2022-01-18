@@ -1,4 +1,7 @@
 class PaysController < ApplicationController
+
+
+
   def index
     @today = Date.today
     @pays = current_user.pays.all.order(date: "asc")
@@ -26,13 +29,17 @@ class PaysController < ApplicationController
     @pay = Pay.new
     @category_parent_array = Category.where(ancestry: nil)
     @families = Family.where(params[:id])
+    @parent_categories = Category.roots
+    @default_child_categories = @parent_categories.first.children
   end
 
-  # 親カテゴリーが選択された後に動くアクション
-  def get_category_children
-    # 選択された親カテゴリーに紐づく子カテゴリーの配列を取得
-    @category_children = Category.find("#{params[:parent_id]}").children
+  # 親カテゴリー選択後に動くアクション
+  def dynamic_select_category
+    @category = Category.find(params[:category_id])
   end
+
+
+
 
   def create
     @pay = Pay.new(pay_params)
@@ -67,9 +74,7 @@ class PaysController < ApplicationController
     params.require(:pay).permit(:user_id,:category_id,:family_id,:price,:date,:memo,:is_active)
   end
 
-  def set_category
-    @category_parent_array = Category.where(ancestry: nil)
-  end
+
 
   def deposit_params
     params.require.(:deposit).permit(:user_id,:price)

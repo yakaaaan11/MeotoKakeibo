@@ -9,6 +9,13 @@ class HomesController < ApplicationController
     @pays_total = @pays.sum(:price)
     @pays_month = current_user.pays.where(date: @today.all_month)
     @pays_month_ratio = @pays_month.group(:category_id).sum(:price).sort_by {|_,v|v}.reverse.to_h
+    # pie_chartはハッシュで渡されるので、key=>category_idをcategory.nameへ変更する
+    hash = {}
+    @pays_month_ratio.each do |key, value|
+      hash[Category.find(key).name] = value
+    end
+    # hash を代入し直す
+    @pays_month_ratio = hash
     @pays_month_total = @pays_month.sum(:price)
     # 予算
     @budgets = current_user.budgets.all
