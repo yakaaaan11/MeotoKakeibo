@@ -2,8 +2,10 @@
   <div class="row">
     <div class="mainContents col-sm-12 col-sm-push-4 col-md-12 col-md-push-4">
       <h1 class="subtitle">支出 <%= link_to "収入", new_income_path %></h1>
+      
 
       <div class="container form-contents">
+       
         <%= form_with(model: @pay, url: pays_path, method: :post, local: true) do |f| %>
           <div class="field form-group row">
             <div class="col-md-12 mb-6">
@@ -20,7 +22,15 @@
           <div class="field form-group row">
             <div class="col-md-12 mb-6">
               <!--親カテゴリーのセレクトボックス-->
-              <%= f.collection_select :category_id, @category_parent_array,:id, :name,{ include_blank: "選択してください"},{class:"form-control"}%>
+              <%= f.collection_select :category_id, @parent_categories,:id, :name,{ },{class:"form-control", id: "parent_category"}%>
+              <i class=fas.fa-chevron-down.listing-select-wrapper__box--arrow-down></i>
+            </div>
+          </div>
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <!--親カテゴリーのセレクトボックス-->
+              
+              <%= f.collection_select :category_id, @default_child_categories,:id, :name,{ },{class:"form-control", id: "parent_category_ids"}%>
               <i class=fas.fa-chevron-down.listing-select-wrapper__box--arrow-down></i>
             </div>
           </div>
@@ -48,3 +58,16 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+$(function() {
+  $('#parent_category').change(function() {
+    $.ajax({
+      url: "<%= dynamic_select_category_path %>",
+      type: 'GET',
+      data: { category_id: $('#parent_category').has('option:selected').val() }
+    });
+  });
+});
+</script>

@@ -13,13 +13,12 @@ Rails.application.routes.draw do
 
   root 'homes#top'
   get "profile" => 'homes#profile'
+  get :dynamic_select_category, to: 'pays#dynamic_select_category'
 
   resources :incomes, only: [:new,:create,:edit,:update,:destroy ]
 
   resources :pays, only: [:index,:new,:create,:edit,:update,:destroy ] do
-    member do
-      get "get_category_children", defaults: {fomat: "json"}
-    end
+
   end
 
   resources :reimbursements, only: [:index,:update] do

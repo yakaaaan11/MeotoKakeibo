@@ -1,8 +1,9 @@
 class Category < ApplicationRecord
-  has_ancestry
+  
   has_many :pays
   has_many :budgets
   belongs_to :user
+  has_ancestry
 
 
   # 予算残高：予算ー支出
