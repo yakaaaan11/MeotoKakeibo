@@ -7,6 +7,7 @@
 </div>
 <div>
   <h2>予算対支出棒グラフ</h2>
+  <%= link_to "予算変更", new_budget_path %>
   <div class="progress">
     <% if @budget_month_ratio <= 100%>
   <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>

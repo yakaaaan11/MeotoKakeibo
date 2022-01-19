@@ -1,2 +1,58 @@
-<h1>Budgets#new</h1>
-<p>Find me in app/views/budgets/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mainContents col-sm-12 col-sm-push-4 col-md-12 col-md-push-4">
+      <h1 class="subtitle">預金登録</h1>
+
+      <%= form_with model: @budget, url: budgets_path, local: true do |f| %>
+        <table class="table">
+        <tbody>
+          <tr>
+          <td>
+              <%= f.collection_select :category_id, @parent_categories,:id, :name,{ },{class:"form-control", id: "parent_category"}%>
+          </td>
+          <td>
+            <%= f.text_field :price,class: 'form-control' %>円
+          </td>
+          <td>
+            <%= f.submit '登録', class: 'btn btn-primary' %>
+          </td>
+          <td></td>
+        </tr>
+        </tbody>
+        </table>
+        <% end %>
+
+
+
+        <table class="table">
+          <% @budgets.each do |budget| %>
+        <tbody>
+
+          <tr>
+            <%= form_with model: budget, url: budget_path(budget), local: true do |f| %>
+          <td>
+              <%= f.hidden_field :category_id,:value => budget.category_id %>
+              <%= f.collection_select :category_id, @parent_categories,:id, :name,{ },{class:"form-control", id: "parent_category"}%>
+          </td>
+          <td>
+            <%= f.hidden_field :price ,:value => budget.price %>
+            <%= f.text_field :price,class: 'form-control' %>円
+          </td>
+          <td>
+            <%= f.submit '更新', class: 'btn btn-primary' %>
+          </td>
+          <% end %>
+          <td>
+            <%= link_to "削除", budget_path(budget), class: "btn btn-denger", method: :delete %>
+          </td>
+        </tr>
+
+        </tbody>
+        <% end %>
+        </table>
+
+
+
+    </div>
+  </div>
+</div>
