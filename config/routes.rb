@@ -28,13 +28,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :families, only: [:index,:new,:create,:edit,:update,:destroy ]
-
   resources :budgets, only: [:index,:new,:create,:update,:destroy ]
 
   resource :deposits, only: [:new,:create]
-
-  resources :categories, only: [:index,:show ]
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
