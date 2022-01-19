@@ -12,8 +12,7 @@
           <li><%= link_to '明細',pays_path,class: ' nav-link text-body' %></li>
           <li><%= link_to '精算',reimbursements_path ,class: 'nav-link text-body'%></li>
           <li><%= link_to '分析', budgets_path,class: 'nav-link text-body' %></li>
-          <li><%= link_to '家族情報', families_path,class: 'nav-link text-body' %></li>
-          <li><%= link_to '支出カテゴリー', categories_path,class: 'nav-link text-body' %></li>
+          <li><%= link_to '予算', new_budget_path,class: 'nav-link text-body' %></li>
           <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete,data:{confirm:"ログアウトしますか？"},class: 'nav-link text-body' %></li>
 
       <% else %>
