@@ -1,32 +1,52 @@
 <div class="container">
-<h1>ホーム</h1>
-
-<div>
-  <h2>口座残高</h2>
-  <%= @balances_total.to_s(:delimited) %>円
-</div>
-<div>
-  <h2>予算対支出棒グラフ</h2>
-  <div class="progress">
-    <% if @budget_month_ratio <= 100%>
-  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
-  <% else %>
-  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
+  <%= link_to pays_path do %>
+    <div class="main-content">
+      <div class="text-right">
+        <button type="button" class="btn btn-outline-secondary">明細を見る</button>
+      </div>
+      <h5>口座残高</h5>
+      <div class="main-price text-right h3">
+        <%= @balances_total.to_s(:delimited) %>円
+      </div>
+    </div>
   <% end %>
 
-</div>
-</div>
-<div>
-  <h2>支出内訳円グラフ</h2>
-  <%= pie_chart @pays_month_ratio, donut: true, suffix: "円",title:"支出" %>
+  <%= link_to budgets_path do %>
+    <div class="main-content">
+      <div class="text-right">
+        <button type="button" class="btn btn-outline-secondary">分析を見る</button>
+      </div>
 
-</div>
+      <h5><%= @today.month %>月の状況</h5>
+      <% if @budget_month_difference < 0 %>
+        <div class="sub-price text-right h6">
+          残り<%= @budget_month_difference.to_s(:delimited) %>円
+          <i class="far fa-thumbs-up"></i>
+        </div>
+      <% else %>
+        <div class="sub-price text-right text-danger h6">
+          <%= @budget_month_difference.to_s(:delimited) %>円オーバー
+          <i class="fas fa-fire-alt"></i>
+        </div>
+      <% end %>
 
-<div>
-  <h2>精算</h2>
+      <div class="progress">
+        <% if @budget_month_ratio <= 100%>
+          <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
+        <% else %>
+          <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
-</div>
-
-
+  <%= link_to budgets_path do %>
+    <div class="main-content">
+      <div class="text-right">
+        <button type="button" class="btn btn-outline-secondary">分析を見る</button>
+      </div>
+      <%= pie_chart @pays_month_ratio, donut: true, suffix: "円",title:"支出内訳" %>
+    </div>
+  <% end %>
 
 </div>
