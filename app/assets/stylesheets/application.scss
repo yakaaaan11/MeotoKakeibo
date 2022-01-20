@@ -33,6 +33,12 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'Varela Round', sans-serif;
+    background-color: #f2f7f5;
+}
+
+main a:link, a:visited, a:hover, a:active {
+    color: #00473e;
+    text-decoration: none;
 }
 
 // ヘッダー
@@ -42,17 +48,15 @@ header {
     width: 100%;
     max-width: 100%;
     box-shadow: none;
-    background-color: #29a9f2;
+    background-color: #00473e;
     position: fixed;
     height: 60px!important;
     overflow: hidden;
     z-index: 10;
+    color: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-// メイン
-main {
-    display: block;
-    margin: 60px auto;
-}
+
 
 // サイドメニュー
 #sidebarMenu {
@@ -63,7 +67,8 @@ main {
     margin-top: 60px;
     transform: translateX(-250px);
     transition: transform 250ms ease-in-out;
-    background: linear-gradient(180deg, #29a9f2 0%, #c7e2f2 100%);
+    background-color: #00473e;
+
 }
 .sidebarMenuInner{
     margin:0;
@@ -113,6 +118,7 @@ input[type=checkbox] {
     left: 15px;
     height: 22px;
     width: 22px;
+    color: #fff;
 }
 .spinner {
     transition: all 0.3s;
@@ -162,5 +168,31 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
 footer {
   height: 60px;
+  background-color :#00473e;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.switch_footer a{
+    color: #fffffe;
+    text-decoration: none;
+}
+
+// メイン
+main {
+    display: block;
+    margin: 90px auto;
+    color: #00473e;
+}
+
+.main-content {
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 3%;
+    margin: 3%;
+}
+
+.main-price {
 
 }
+
