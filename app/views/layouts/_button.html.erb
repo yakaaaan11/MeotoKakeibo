@@ -1,0 +1,7 @@
+<% if user_signed_in? %>
+  <div id="fixed-button">
+  <%= link_to new_pay_path do%>
+    <%= image_tag asset_path('pen.png'), class:"pen" %>
+  <% end %>
+  </div>
+<% end %>
