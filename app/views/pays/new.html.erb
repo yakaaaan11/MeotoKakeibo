@@ -1,65 +1,63 @@
 <div class="container">
   <div class="row">
-    <div class="mainContents col-sm-12 col-sm-push-4 col-md-12 col-md-push-4">
-      <h1 class="subtitle">支出 <%= link_to "収入", new_income_path %></h1>
-      
+    <h1>支出</h1>
+    <h1>　/　</h1>
+    <h1><%= link_to "収入", new_income_path , class:"text-black-50"%></h1>
 
-      <div class="container form-contents">
-       
-        <%= form_with(model: @pay, url: pays_path, method: :post, local: true) do |f| %>
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.text_field :price, autofocus: true, autocomplete: "price", class:"form-control", required: true %>
-            </div>
+    <div class="container form-contents">
+      <%= form_with(model: @pay, url: pays_path, method: :post, local: true) do |f| %>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.text_field :price, autofocus: true, autocomplete: "price", class:"form-control", required: true %>
           </div>
+        </div>
 
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.date_select:date,{} , required: true%>
-            </div>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.date_select:date,{use_month_numbers:true}, {class: 'form-control', style: 'display: inline-block;width: auto;'}%>
           </div>
+        </div>
 
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <!--親カテゴリーのセレクトボックス-->
-              <%= f.collection_select :category_id, @parent_categories,:id, :name,{ },{class:"form-control", id: "parent_category"}%>
-              <i class=fas.fa-chevron-down.listing-select-wrapper__box--arrow-down></i>
-            </div>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <!--親カテゴリーのセレクトボックス-->
+            <%= f.collection_select :category_id, @parent_categories,:id, :name,{ },{class:"form-control", id: "parent_category"}%>
           </div>
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <!--親カテゴリーのセレクトボックス-->
-              
-              <%= f.collection_select :category_id, @default_child_categories,:id, :name,{ },{class:"form-control", id: "parent_category_ids"}%>
-              <i class=fas.fa-chevron-down.listing-select-wrapper__box--arrow-down></i>
-            </div>
+        </div>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <!--親カテゴリーのセレクトボックス-->
+            <%= f.collection_select :category_id, @default_child_categories,:id, :name,{ },{class:"form-control", id: "parent_category_ids"}%>
           </div>
+        </div>
 
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.collection_select :family_id, @families, :id ,:name,{}, {class:"form-control"} %>
-            </div>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.collection_select :family_id, @families, :id ,:name,{}, {class:"form-control"} %>
           </div>
+        </div>
 
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.text_field :memo, autofocus: true, autocomplete: "memo", class:"form-control" %>
-            </div>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.text_field :memo, autocomplete: "memo", class:"form-control" %>
           </div>
+        </div>
 
-          <div class="actions">
-            <%= f.submit "登録", class:"form-button" %>
-          </div>
+        <div class="actions text-center">
+          <%= f.submit "登録" ,class:"btn btn-secondary w-75 m-1"%>
+        </div>
+      <% end %>
+
+      <div class="actions text-center">
+        <%= link_to pays_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">キャンセル</button>
         <% end %>
       </div>
-       <div class="actions">
-            <%= link_to "キャンセル",pays_path,class:"form-button" %>
-        </div>
     </div>
   </div>
 </div>
 
-
+<!--子カテゴリーの項目変更-->
 <script type="text/javascript">
 $(function() {
   $('#parent_category').change(function() {

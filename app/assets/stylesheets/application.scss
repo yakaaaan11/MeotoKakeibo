@@ -18,6 +18,8 @@
   @import 'font-awesome';
   @import url('https://fonts.googleapis.com/css2?family=Vollkorn&display=swap');
 
+  @import "simple_calendar";
+
   // デプロイ開発準備　画像表記
   // body {
   // background-image: image-url("hoge.jpg");
@@ -39,6 +41,17 @@ body {
 main a:link, a:visited, a:hover, a:active {
     color: #00473e;
     text-decoration: none;
+}
+
+// 入力ページへのボタン
+#fixed-button {
+  position: fixed;
+  right: 20px;
+  bottom: 65px;
+}
+
+.pen {
+    height: 50px;
 }
 
 // ヘッダー
@@ -172,9 +185,8 @@ footer {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.switch_footer a{
+.footer a{
     color: #fffffe;
-    text-decoration: none;
 }
 
 // メイン
@@ -196,3 +208,7 @@ main {
 
 }
 
+// カレンダー
+.simple-calendar .today {
+    background-color: #faae2c;
+}

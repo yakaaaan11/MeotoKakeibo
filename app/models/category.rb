@@ -1,8 +1,7 @@
 class Category < ApplicationRecord
-  
+
   has_many :pays
   has_many :budgets
-  belongs_to :user
   has_ancestry
 
 
