@@ -18,6 +18,8 @@
   @import 'font-awesome';
   @import url('https://fonts.googleapis.com/css2?family=Vollkorn&display=swap');
 
+  @import "simple_calendar";
+
   // デプロイ開発準備　画像表記
   // body {
   // background-image: image-url("hoge.jpg");
@@ -206,3 +208,7 @@ main {
 
 }
 
+// カレンダー
+.simple-calendar .today {
+    background-color: #faae2c;
+}
