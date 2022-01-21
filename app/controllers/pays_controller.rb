@@ -49,8 +49,9 @@ class PaysController < ApplicationController
 
   def edit
     @pay = Pay.find(params[:id])
-    @category_parent_array = Category.where(ancestry: nil)
     @families = Family.where(params[:id])
+    @parent_categories = Category.roots
+    @default_child_categories = @parent_categories.first.children
   end
 
   def update

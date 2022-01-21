@@ -5,9 +5,9 @@
         <button type="button" class="btn btn-outline-secondary">明細を見る</button>
       </div>
       <h5>口座残高</h5>
-      <div class="main-price text-right h3">
+      <h3 class="main-price text-right">
         <%= @balances_total.to_s(:delimited) %>円
-      </div>
+      </h3>
     </div>
   <% end %>
 
@@ -19,15 +19,15 @@
 
       <h5><%= @today.month %>月の状況</h5>
       <% if @budget_month_difference < 0 %>
-        <div class="sub-price text-right h6">
+        <h6 class="sub-price text-right">
           残り<%= @budget_month_difference.to_s(:delimited) %>円
           <i class="far fa-thumbs-up"></i>
-        </div>
+        </h6>
       <% else %>
-        <div class="sub-price text-right text-danger h6">
+        <h6 class="sub-price text-right text-danger">
           <%= @budget_month_difference.to_s(:delimited) %>円オーバー
           <i class="fas fa-fire-alt"></i>
-        </div>
+        </h6>
       <% end %>
 
       <div class="progress">

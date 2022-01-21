@@ -1,49 +1,54 @@
 <div class="container">
   <div class="row">
-    <div class="mainContents col-sm-12 col-sm-push-4 col-md-12 col-md-push-4">
-      <h1 class="subtitle">支出</h1>
-
-      <div class="container form-contents">
-        <%= form_with(model: @pay, url: pay_path, local: true) do |f| %>
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.text_field :price, autofocus: true, autocomplete: "price", class:"form-control", required: true %>
-            </div>
+    <h1>支出</h1>
+    <div class="container form-contents">
+      <%= form_with(model: @pay, url: pay_path, local: true) do |f| %>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.text_field :price, autofocus: true, autocomplete: "price", class:"form-control", required: true %>
           </div>
-
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.date_select:date,{} , required: true%>
-            </div>
-          </div>
-
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <!--親カテゴリーのセレクトボックス-->
-              <%= f.collection_select :category_id, @category_parent_array,:id, :name,{ include_blank: "選択してください"},{class:"form-control"}%>
-              <i class=fas.fa-chevron-down.listing-select-wrapper__box--arrow-down></i>
-            </div>
-          </div>
-
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.collection_select :family_id, @families, :id ,:name,{}, {class:"form-control"} %>
-            </div>
-          </div>
-
-          <div class="field form-group row">
-            <div class="col-md-12 mb-6">
-              <%= f.text_field :memo, autofocus: true, autocomplete: "memo", class:"form-control" %>
-            </div>
-          </div>
-
-          <div class="actions">
-            <%= f.submit "登録", class:"form-button" %>
-          </div>
-        <% end %>
-        <div class="actions">
-            <%= link_to "削除",pay_path(@pay),method: :delete,class:"form-button-alert","data-confirm" => "本当に削除しますか？" %>
         </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.date_select:date,{use_month_numbers:true}, {class: 'form-control', style: 'display: inline-block;width: auto;'}%>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <!--親カテゴリーのセレクトボックス-->
+            <%= f.collection_select :category_id, @parent_categories,:id, :name,{ },{class:"form-control", id: "parent_category"}%>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <!--親カテゴリーのセレクトボックス-->
+            <%= f.collection_select :category_id, @default_child_categories,:id, :name,{ },{class:"form-control", id: "parent_category_ids"}%>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.collection_select :family_id, @families, :id ,:name,{}, {class:"form-control"} %>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.text_field :memo, autocomplete: "memo", class:"form-control" %>
+          </div>
+        </div>
+
+        <div class="actions text-center">
+          <%= f.submit "更新" ,class:"btn btn-secondary w-75 m-1"%>
+        </div>
+      <% end %>
+      <div class="actions text-center">
+        <%= link_to pays_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">キャンセル</button>
+        <% end %>
       </div>
     </div>
   </div>

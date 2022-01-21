@@ -61,7 +61,6 @@
   </div>
 
   <div class="main-content">
-
     <table class="table text-center">
       <tr>
         <th>日付</th>
@@ -75,66 +74,59 @@
         <th></th>
       </tr>
       <tbody>
-          <% @balances_month.each do |balance| %>
+        <% @balances_month.each do |balance| %>
           <% if !balance[:category_id].nil? %>
-              <tr>
-                  <td><%= balance.date %></td>
-                  <td><%= balance.category.name %></td>
-                  <td>
-                    <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
-                  </td>
-                  <td>-<%= balance.price.to_s(:delimited) %>円</td>
-                  <td>
-                    <% if balance.is_active == true %>
-                      <i class="fas fa-check-square"></i>
-                    <% elsif balance.is_active == false && balance.family_id == 1 %>
-                      <i class="far fa-minus-square"></i>
-                    <% else %>
-                      <%= link_to reimbursements_path do %>
-                        <i class="far fa-square"></i>
-                      <% end %>
-                    <% end %>
-                  </td>
-                  <td><%= balance.memo %></td>
-                  <td>
-                      <div class="row">
-                          <button type="button" class="btn btn-outline-secondary">
-                              <%= link_to "編集",edit_pay_path(balance),class:"form-button" %>
-                          </button>
+            <tr>
+              <td><%= balance.date %></td>
+              <td><%= balance.category.name %></td>
+              <td>
+                <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+              </td>
+              <td>-<%= balance.price.to_s(:delimited) %>円</td>
+              <td>
+                <% if balance.is_active == true %>
+                  <i class="fas fa-check-square"></i>
+                <% elsif balance.is_active == false && balance.family_id == 1 %>
+                  <i class="far fa-minus-square"></i>
+                <% else %>
+                  <%= link_to reimbursements_path do %>
+                    <i class="far fa-square"></i>
+                  <% end %>
+                <% end %>
+              </td>
+              <td><%= balance.memo %></td>
+              <td>
+                <%= link_to edit_pay_path(balance) do %>
+                  <button type="button" class="btn btn-outline-secondary m-1">編集</button>
+                <% end %>
+                <%= link_to pay_path(balance),method: :delete,"data-confirm" => "本当に削除しますか？" do %>
+                  <button type="button" class="btn btn-outline-secondary m-1">削除</button>
+                <% end %>
+              </td>
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= balance.date %></td>
+              <td>収入</td>
+              <td>
+                <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+              </td>
+              <td><%= balance.price.to_s(:delimited) %>円</td>
+              <td><i class="far fa-minus-square"></i></td>
+              <td><%= balance.memo %></td>
+              <td>
+                <%= link_to edit_income_path(balance) do %>
+                  <button type="button" class="btn btn-outline-secondary m-1">編集</button>
+                <% end %>
 
-                          <button type="button" class="btn btn-outline-secondary">
-                              <%= link_to "削除",pay_path(balance),method: :delete,class:"form-button-alert","data-confirm" => "本当に削除しますか？" %>
-                          </button>
-                      </div>
-                  </td>
-              </tr>
-            <% else %>
-              <tr>
-                  <td><%= balance.date %></td>
-                  <td>収入</td>
-                  <td>
-                    <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
-                  </td>
-                  <td><%= balance.price.to_s(:delimited) %>円</td>
-                  <td><i class="far fa-minus-square"></i></td>
-                  <td><%= balance.memo %></td>
-                  <td>
-                      <div class="row">
-                        <button type="button" class="btn btn-outline-secondary">
-                          <%= link_to "編集",edit_income_path(balance),class:"form-button" %>
-                        </button>
-
-                        <button type="button" class="btn btn-outline-secondary">
-                          <%= link_to "削除",income_path(balance),method: :delete,class:"form-button-alert","data-confirm" => "本当に削除しますか？" %>
-                        </button>
-                      </div>
-                  </td>
-              </tr>
-              <% end %>
+                <%= link_to income_path(balance),method: :delete,"data-confirm" => "本当に削除しますか？" do %>
+                  <button type="button" class="btn btn-outline-secondary m-1">削除</button>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>
-
-
 </div>
