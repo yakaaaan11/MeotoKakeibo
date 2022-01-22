@@ -1,100 +1,108 @@
 <div class="container">
-<h1>立替精算</h1>
+  <div class="main-content">
+    <h5>立替精算</h5>
+    <div class="row d-flex align-items-end justify-content-center">
+      <div class="px-2">
+        <%= attachment_image_tag(@husband, :image, :fill, 50, 50) %>
+      </div>
+      <h6 class="d-flex align-items-end">共通財布から</h6>
+      <h3 class="px-3"><%= @pays_husband.to_s(:delimited) %>円</h3>
+      <h6 class="d-flex align-items-end">もらう</h6>
+      <div class="d-flex align-items-end pl-5">
+        <%= link_to update_husband_reimbursements_path, method: :patch do %>
+          <button type="button" class="btn btn-outline-secondary m-1">精算</button>
+        <% end %>
+      </div>
+    </div>
 
-<div>
-  夫へ共通財布から
-  <%= @pays_husband.to_s(:delimited) %>円
-  <%= link_to '精算', update_husband_reimbursements_path, method: :patch %>
-</div>
+    <div class="row d-flex align-items-end justify-content-center">
+      <div class="px-2">
+        <%= attachment_image_tag(@wife, :image, :fill, 50, 50) %>
+      </div>
+      <h6 class="d-flex align-items-end">共通財布から</h6>
+      <h3 class="px-3"><%= @pays_wife.to_s(:delimited) %>円</h3>
+      <h6 class="d-flex align-items-end">もらう</h6>
+      <div class="d-flex align-items-end pl-5">
+        <%= link_to update_wife_reimbursements_path, method: :patch do %>
+          <button type="button" class="btn btn-outline-secondary m-1">精算</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-<div>
-  妻へ共通財布から
-  <%= @pays_wife.to_s(:delimited) %>円
-  <%= link_to '精算', update_wife_reimbursements_path, method: :patch %>
-</div>
-
-<div class="row">
-  <h2>夫</h2>
-  <table class="table">
-    <tr>
-      <th>日にち</th>
-      <th>カテゴリー</th>
-      <th>財布</th>
-      <th>金額</th>
-      <th>精算</th>
-      <th>メモ</th>
-    </tr>
-    <tbody>
-        <% @pays.each do |pay| %>
-        <% if pay.is_active == false && pay.family.name == "夫"%>
-            <tr>
+  <div class="main-content">
+    <div class="row">
+      <h5 class="d-flex align-items-end justify-content-center pl-3">
+        <%= attachment_image_tag(@husband, :image, :fill, 50, 50) %>の未精算一覧
+      </h5>
+      <table class="table">
+        <tr>
+          <th>日にち</th>
+          <th>カテゴリー</th>
+          <th>財布</th>
+          <th>金額</th>
+          <th>メモ</th>
+          <th></th>
+        </tr>
+        <tbody>
+          <% @pays.each do |pay| %>
+            <% if pay.is_active == false && pay.family.name == "夫"%>
+              <tr>
                 <td><%= pay.date %></td>
                 <td><%= pay.category.name %></td>
                 <td>
-                  <%= attachment_image_tag(pay.family, :image, :fill, 50, 50) %>
+                  <%= attachment_image_tag(pay.family, :image, :fill, 40, 40) %>
                 </td>
-                <td><%= -pay.price %></td>
-                <td>
-                  <i class="far fa-square"></i>
-                </td>
+                <td>-<%= pay.price.to_s(:delimited) %>円</td>
                 <td><%= pay.memo %></td>
                 <td>
-                    <div class="row">
-                        <div class="actions">
-                            <%= link_to "精算",reimbursement_path(pay),method: :patch ,class:"form-button" %>
-                        </div>
-                    </div>
+                  <%= link_to reimbursement_path(pay), method: :patch do %>
+                    <button type="button" class="btn btn-outline-secondary m-1">精算</button>
+                  <% end %>
                 </td>
-            </tr>
+              </tr>
+            <% end %>
           <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-        <% end %>
-    </tbody>
-  </table>
-</div>
-
-<div class="row">
-  <h2>妻</h2>
-  <table class="table">
-    <tr>
-      <th>日にち</th>
-      <th>カテゴリー</th>
-      <th>財布</th>
-      <th>金額</th>
-      <th>精算</th>
-      <th>メモ</th>
-    </tr>
-    <tbody>
-        <% @pays.each do |pay| %>
-        <% if pay.is_active == false && pay.family.name == "妻"%>
-            <tr>
+  <div class="main-content">
+    <div class="row">
+      <h5 class="d-flex align-items-end justify-content-center pl-3">
+        <%= attachment_image_tag(@wife, :image, :fill, 50, 50) %>の未精算一覧
+      </h5>
+      <table class="table">
+        <tr>
+          <th>日にち</th>
+          <th>カテゴリー</th>
+          <th>財布</th>
+          <th>金額</th>
+          <th>メモ</th>
+          <th></th>
+        </tr>
+        <tbody>
+          <% @pays.each do |pay| %>
+            <% if pay.is_active == false && pay.family.name == "妻"%>
+              <tr>
                 <td><%= pay.date %></td>
                 <td><%= pay.category.name %></td>
                 <td>
-                  <%= attachment_image_tag(pay.family, :image, :fill, 50, 50) %>
+                  <%= attachment_image_tag(pay.family, :image, :fill, 40, 40) %>
                 </td>
-                <td><%= -pay.price %></td>
-                <td>
-                  <i class="far fa-square"></i>
-                </td>
+                <td>-<%= pay.price.to_s(:delimited) %>円</td>
                 <td><%= pay.memo %></td>
                 <td>
-                    <div class="row">
-                        <div class="actions">
-                            <%= link_to "精算",reimbursement_path(pay),method: :patch,class:"form-button" %>
-                        </div>
-                    </div>
+                  <%= link_to reimbursement_path(pay), method: :patch do %>
+                    <button type="button" class="btn btn-outline-secondary m-1">精算</button>
+                  <% end %>
                 </td>
-            </tr>
+              </tr>
+            <% end %>
           <% end %>
-
-        <% end %>
-    </tbody>
-  </table>
-</div>
-
-<div>
-  <%= link_to "新規追加" ,new_pay_path %>
-</div>
-
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

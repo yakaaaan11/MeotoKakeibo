@@ -4,6 +4,9 @@ class ReimbursementsController < ApplicationController
     @pays_family = @pays.group(:family_id)
     @pays_husband = @pays.where(family_id:2).where(is_active:false).sum(:price)
     @pays_wife = @pays.where(family_id:3).where(is_active:false).sum(:price)
+    @wallet = Family.find(1)
+    @husband = Family.find(2)
+    @wife = Family.find(3)
   end
 
   def update
