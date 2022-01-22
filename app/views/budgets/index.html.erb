@@ -1,20 +1,40 @@
 <div class="container">
-<h1>分析</h1>
-
-<div>
-  <h2>支出内訳円グラフ</h2>
-  <%= pie_chart @pays_month_ratio, donut: true, suffix: "円",title:"支出" %>
-</div>
-<div>
-  <h2>予算対支出棒グラフ</h2>
-  <%= link_to "予算変更", new_budget_path %>
-  <div class="progress">
-    <% if @budget_month_ratio <= 100%>
-  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
-  <% else %>
-  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
-  <% end %>
+  <div class="main-content">
+    <h5>支出内訳</h5>
+      <%= pie_chart @pays_month_ratio, donut: true, suffix: "円",title:"支出" %>
   </div>
+
+  <%= link_to new_budget_path do %>
+  <div class="main-content">
+    <div class="text-right">
+        <button type="button" class="btn btn-outline-secondary">予算を変更する</button>
+      </div>
+
+  <div class="p-3">
+    <h5><%= @today.month %>月の全体</h5>
+    <% if @budget_month_difference < 0 %>
+        <h6 class="sub-price text-right">
+          残り<%= @budget_month_difference.to_s(:delimited) %>円
+          <i class="far fa-thumbs-up"></i>
+        </h6>
+      <% else %>
+        <h6 class="sub-price text-right text-danger">
+          <%= @budget_month_difference.to_s(:delimited) %>円オーバー
+          <i class="fas fa-fire-alt"></i>
+        </h6>
+      <% end %>
+
+      <div class="progress">
+        <% if @budget_month_ratio <= 100%>
+      <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
+      <% else %>
+      <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
+      <% end %>
+      </div>
+
+
+      <h5 class="pt-5">カテゴリー別支出状況</h5>
+<div class="p-3">
     <table>
       <thead>
         <tr>
@@ -26,7 +46,7 @@
         </tr>
     </thead>
       <tbody>
-         <% @category_parent_array.each do |category| %>
+         <% @parent_categories.each do |category| %>
         <tr>
 
           <td><h5><%= category.name %></h5></td>
@@ -59,16 +79,9 @@
 
       </tbody>
     </table>
-
 </div>
-
-
-
-<div>
-  <h2>精算</h2>
 </div>
-
 </div>
-
+<% end %>
 
 
