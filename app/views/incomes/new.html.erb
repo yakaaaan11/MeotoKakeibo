@@ -8,7 +8,7 @@
       <%= form_with(model: @income, url: incomes_path, method: :post, local: true) do |f| %>
         <div class="field form-group row">
           <div class="col-md-12 mb-6">
-            <%= f.text_field :price, autofocus: true, autocomplete: "price", class:"form-control", required: true %>
+            <%= f.text_field :price, autofocus: true, autocomplete: "price",placeholder: "0 円", class:"form-control text-right", required: true %>
           </div>
         </div>
 

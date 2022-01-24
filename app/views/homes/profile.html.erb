@@ -18,7 +18,7 @@
       </div>
 
       <h5><%= @today.month %>月の状況</h5>
-      <% if @budget_month_difference < 0 %>
+      <% if @budget_month_difference >= 0 %>
         <h6 class="sub-price text-right">
           残り<%= @budget_month_difference.to_s(:delimited) %>円
           <i class="far fa-thumbs-up"></i>
