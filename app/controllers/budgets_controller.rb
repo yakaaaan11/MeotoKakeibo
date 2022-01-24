@@ -14,8 +14,11 @@ class BudgetsController < ApplicationController
     @budgets = current_user.budgets.all
     @budgets_total = @budgets.sum(:price)
     @budget_month_ratio = @pays_month_total*100 / @budgets_total
+    @budget_month_difference = @budgets_total - @pays_month_total
 
-    @category_parent_array = Category.where(ancestry: nil)
+
+    @parent_categories = Category.roots
+
   end
 
   def new
