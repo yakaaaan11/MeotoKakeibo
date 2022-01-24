@@ -26,7 +26,7 @@ class HomesController < ApplicationController
     @budget_month_ratio = @pays_month_total*100 / @budgets_total
 
     # 予算-支出
-    @budget_month_difference = @pays_month_total - @budgets_total
+    @budget_month_difference =  @budgets_total - @pays_month_total
 
     # 収入
     @incomes = current_user.incomes.all
