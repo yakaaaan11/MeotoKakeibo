@@ -1,7 +1,5 @@
 class PaysController < ApplicationController
 
-
-
   def index
     @today = Date.today
     @pays = current_user.pays.all.order(date: "asc")
@@ -14,13 +12,18 @@ class PaysController < ApplicationController
     @incomes_month = current_user.incomes.where(date: @today.all_month).order(date: "asc")
     @incomes_month_total = @incomes_month.sum(:price)
 
-    @deposit = current_user.deposit.price
+    if !current_user.deposit.nil?
+      @deposit = current_user.deposit.price
+    end
 
-    @balances_total = @deposit+ @incomes_total - @pays_total
-    @balances_month_total = @incomes_month_total - @pays_month_total
-    # カレンダー収支
-    @balances = @pays + @incomes
-    @balances_month = @pays_month + @incomes_month
+    if !@deposit.nil?
+      @balances_total = @deposit+ @incomes_total - @pays_total
+      @balances_month_total = @incomes_month_total - @pays_month_total
+    end
+      # カレンダー収支
+      @balances = @pays + @incomes
+      @balances_month = @pays_month + @incomes_month
+
 
 
   end

@@ -1,4 +1,5 @@
 class BudgetsController < ApplicationController
+
   def index
     @today = Date.today
     @pays_month = current_user.pays.where(date: @today.all_month)
@@ -12,10 +13,11 @@ class BudgetsController < ApplicationController
     @pays_month_total = @pays_month.sum(:price)
 
     @budgets = current_user.budgets.all
-    @budgets_total = @budgets.sum(:price)
-    @budget_month_ratio = @pays_month_total*100 / @budgets_total
-    @budget_month_difference = @budgets_total - @pays_month_total
-
+    if !@budgets.empty?
+      @budgets_total = @budgets.sum(:price)
+      @budget_month_ratio = @pays_month_total*100 / @budgets_total
+      @budget_month_difference = @budgets_total - @pays_month_total
+    end
 
     @parent_categories = Category.roots
 
@@ -25,6 +27,7 @@ class BudgetsController < ApplicationController
     @parent_categories = Category.roots
     @budget = Budget.new
     @budgets = current_user.budgets.all
+
   end
 
   def create

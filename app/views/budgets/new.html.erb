@@ -40,6 +40,13 @@
           </tbody>
         <% end %>
       </table>
+      <% if !@budgets.empty? %>
+        <div class="actions text-center">
+          <%= link_to profile_path do %>
+            <button type="button" class="btn btn-outline-secondary w-75 m-1">ホームへ</button>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

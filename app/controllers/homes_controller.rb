@@ -1,4 +1,5 @@
 class HomesController < ApplicationController
+
   def top
   end
 
@@ -23,7 +24,9 @@ class HomesController < ApplicationController
     @budgets_total = @budgets.sum(:price)
 
     # 予算比
-    @budget_month_ratio = @pays_month_total*100 / @budgets_total
+    if @budgets_total != 0
+      @budget_month_ratio = @pays_month_total*100 / @budgets_total
+    end
 
     # 予算-支出
     @budget_month_difference =  @budgets_total - @pays_month_total
@@ -35,12 +38,16 @@ class HomesController < ApplicationController
     @incomes_month_total = @incomes_month.sum(:price)
 
     # 預金
-    @deposit = current_user.deposit.price
+    if !current_user.deposit.nil?
+      @deposit = current_user.deposit.price
+    end
 
 
     # 残高
-    @balances_total = @deposit+ @incomes_total - @pays_total
-    @balances_month_total = @incomes_month_total - @pays_month_total
+    if !@deposit.nil?
+      @balances_total = @deposit+ @incomes_total - @pays_total
+      @balances_month_total = @incomes_month_total - @pays_month_total
+    end
 
 
   end
