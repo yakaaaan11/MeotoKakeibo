@@ -1,2 +1,73 @@
-<h1>Homes#about</h1>
-<p>Find me in app/views/homes/about.html.erb</p>
+<div class="container">
+  <% if !current_user.deposit.nil? %>
+    <%= link_to pays_path do %>
+      <div class="main-content">
+        <div class="text-right">
+          <button type="button" class="btn btn-outline-secondary">明細を見る</button>
+        </div>
+        <h5>口座残高</h5>
+        <h3 class="main-price text-right">
+          <%= @balances_total.to_s(:delimited) %>円
+        </h3>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="main-content">
+      <div class="actions text-center">
+        <%= link_to new_deposits_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">預金を登録してください。</button>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if !@budgets.empty? %>
+    <%= link_to budgets_path do %>
+      <div class="main-content">
+        <div class="text-right">
+          <button type="button" class="btn btn-outline-secondary">分析を見る</button>
+        </div>
+
+        <h5><%= @today.month %>月の状況</h5>
+        <% if @budget_month_difference >= 0 %>
+          <h6 class="sub-price text-right">
+            残り<%= @budget_month_difference.to_s(:delimited) %>円
+            <i class="far fa-thumbs-up"></i>
+          </h6>
+        <% else %>
+          <h6 class="sub-price text-right text-danger">
+            <%= @budget_month_difference.to_s(:delimited) %>円オーバー
+            <i class="fas fa-fire-alt"></i>
+          </h6>
+        <% end %>
+
+        <div class="progress">
+          <% if @budget_month_ratio <= 100%>
+            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
+          <% else %>
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="main-content">
+      <div class="actions text-center">
+        <%= link_to new_budget_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">予算を登録してください。</button>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if !@budgets.empty? %>
+    <%= link_to budgets_path do %>
+      <div class="main-content">
+        <div class="text-right">
+          <button type="button" class="btn btn-outline-secondary">分析を見る</button>
+        </div>
+        <%= pie_chart @pays_month_ratio, donut: true, suffix: "円",title:"支出内訳" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

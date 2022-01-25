@@ -1,2 +1,71 @@
-<h1>Pays#new</h1>
-<p>Find me in app/views/pays/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="font-weight-bold">支出</h1>
+    <h1>　/　</h1>
+    <h1><%= link_to "収入", new_income_path , class:"text-black-50"%></h1>
+
+    <div class="container form-contents">
+      <%= form_with(model: @pay, url: pays_path, method: :post, local: true) do |f| %>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.text_field :price, autofocus: true, autocomplete: "price",placeholder: "0 円", class:"form-control text-right", required: true %>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.date_select:date,{use_month_numbers:true}, {class: 'form-control', style: 'display: inline-block;width: auto;'}%>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <!--親カテゴリーのセレクトボックス-->
+            <%= f.collection_select :category_id, @parent_categories,:id, :name,{ },{class:"form-control", id: "parent_category"}%>
+          </div>
+        </div>
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <!--親カテゴリーのセレクトボックス-->
+            <%= f.collection_select :category_id, @default_child_categories,:id, :name,{ },{class:"form-control", id: "parent_category_ids"}%>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.collection_select :family_id, @families, :id ,:name,{}, {class:"form-control"} %>
+          </div>
+        </div>
+
+        <div class="field form-group row">
+          <div class="col-md-12 mb-6">
+            <%= f.text_field :memo, autocomplete: "memo", class:"form-control" %>
+          </div>
+        </div>
+
+        <div class="actions text-center">
+          <%= f.submit "登録" ,class:"btn btn-secondary w-75 m-1"%>
+        </div>
+      <% end %>
+
+      <div class="actions text-center">
+        <%= link_to pays_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">キャンセル</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--子カテゴリーの項目変更-->
+<script type="text/javascript">
+$(function() {
+  $('#parent_category').change(function() {
+    $.ajax({
+      url: "<%= dynamic_select_category_path %>",
+      type: 'GET',
+      data: { category_id: $('#parent_category').has('option:selected').val() }
+    });
+  });
+});
+</script>

@@ -1,0 +1,2 @@
+<!--親カテゴリー選択後に子カテゴリーの選択肢が表示される-->
+$('#parent_category_ids').html('<%= j(options_for_select(@category.children.pluck(:name, :id))) %>');

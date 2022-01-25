@@ -1,2 +1,42 @@
-<h1>Incomes#edit</h1>
-<p>Find me in app/views/incomes/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1>収入</h1>
+      <div class="container form-contents">
+        <%= form_with(model: @income, url: income_path, local: true) do |f| %>
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.text_field :price, autofocus: true, autocomplete: "price", class:"form-control", required: true %>
+            </div>
+          </div>
+
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.date_select:date,{use_month_numbers:true}, {class: 'form-control', style: 'display: inline-block;width: auto;'}%>
+            </div>
+          </div>
+
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.collection_select :family_id, @families, :id ,:name,{}, {class:"form-control"} %>
+            </div>
+          </div>
+
+          <div class="field form-group row">
+            <div class="col-md-12 mb-6">
+              <%= f.text_field :memo, autofocus: true, autocomplete: "memo", class:"form-control" %>
+            </div>
+          </div>
+
+          <div class="actions text-center">
+            <%= f.submit "更新" ,class:"btn btn-secondary w-75 m-1"%>
+          </div>
+        <% end %>
+        <div class="actions text-center">
+          <%= link_to pays_path do %>
+            <button type="button" class="btn btn-outline-secondary w-75 m-1">キャンセル</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

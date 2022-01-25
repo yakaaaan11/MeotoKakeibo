@@ -1,2 +1,28 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="container">
+  <div>
+    <div class="row d-flex justify-content-center">
+    <div class="col-8">
+    <div class="pl-3">
+      <%= image_tag 'logo.png' %>
+    </div>
+    <h1 class="px-5 py-4 font-weight-bold">
+      夫婦の家計管理を、</br>ストレスフリーに。
+    </h1>
+    <h4 class="px-5 py-4">このアプリは、夫婦の家計管理の際に活用できる</br>”共通財布専用”家計簿です。</h4>
+    </div>
+    <div class="col-4 d-flex justify-content-center">
+      <%= image_tag '人.png',:height => '400', class:"m-4" %>
+    </div>
+    </div>
+    <div class="text-center">
+      <%= link_to new_user_registration_path do %>
+        <button type="button" class="btn btn-secondary w-75 m-1">新規会員登録</button>
+      <% end %>
+    </div>
+    <div class="text-center">
+      <%= link_to new_user_session_path do %>
+        <button type="button" class="btn btn-outline-secondary w-75 m-1">ログイン</button>
+      <% end %>
+    </div>
+  </div>
+</div>
