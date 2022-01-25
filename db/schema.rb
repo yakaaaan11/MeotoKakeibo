@@ -51,13 +51,6 @@ ActiveRecord::Schema.define(version: 2022_01_21_105154) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "mini_categories", force: :cascade do |t|
-    t.integer "category_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "pays", force: :cascade do |t|
     t.integer "user_id"
     t.integer "category_id"
