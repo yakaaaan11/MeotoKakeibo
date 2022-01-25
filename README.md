@@ -25,7 +25,7 @@
 日々の家計管理。立替が発生した時の相殺精算。
 
 ## 設計書
-<...>
+https://drive.google.com/file/d/1TG2W9VATxsq2T_E2MRpvjG2p4kXmsVQq/view?usp=sharing
 
 ## チャレンジ要素一覧
 https://docs.google.com/spreadsheets/d/17nvqqKv6eTfOdgV5LykkU0LHLFkkFd4qd4SwsoHHNTM/edit?usp=sharing
