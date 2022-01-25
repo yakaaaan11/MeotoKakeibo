@@ -5,88 +5,96 @@
   </div>
 
   <div class="main-content">
-    <div class="text-right">
-      <%= link_to new_budget_path do %>
-        <button type="button" class="btn btn-outline-secondary">予算を変更する</button>
-      <% end %>
-    </div>
-
-    <div class="p-3">
-      <h5><%= @today.month %>月の全体</h5>
-      <% if @budget_month_difference >= 0 %>
-        <h6 class="sub-price text-right">
-          残り<%= @budget_month_difference.to_s(:delimited) %>円
-          <i class="far fa-thumbs-up"></i>
-        </h6>
-      <% else %>
-        <h6 class="sub-price text-right text-danger">
-          <%= @budget_month_difference.to_s(:delimited) %>円オーバー
-          <i class="fas fa-fire-alt"></i>
-        </h6>
-      <% end %>
-
-      <div class="progress">
-        <% if @budget_month_ratio <= 100%>
-          <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
-        <% else %>
-          <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
+    <% if !@budgets.empty? %>
+      <div class="text-right">
+        <%= link_to new_budget_path do %>
+          <button type="button" class="btn btn-outline-secondary">予算を変更する</button>
         <% end %>
       </div>
-    </div>
 
-    <div class="p-3">
-      <h5 class="pt-5">カテゴリー別支出状況</h5>
-      <table class="table text-center">
-        <thead>
-          <tr>
-            <th class="col-2">カテゴリー</th>
-            <th class="col-2">支出</th>
-            <th class="col-2">予算</th>
-            <th class="col-4">使ったお金</th>
-            <th class="col-2">残り使える金額</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @parent_categories.each do |category| %>
-            <tr>
-              <td><%= category.name %></td>
-              <td>
-                <% @sum = 0 %>
-                <% category.subtree.each do |category| %>
-                  <% category.pays.sum(:price) %>
-                  <% @sum += category.pays.sum(:price) %>
-                <% end %>
-                <%= @sum.to_s(:delimited) %>円
-              </td>
-              <td>
-                <%= category.budgets.sum(:price).to_s(:delimited) %>円
-              </td>
-              <td>
-                <div class="progress">
-                  <% if category.budgets.sum(:price) == 0 && @sum == 0 %>
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%"><%= @sum.to_s(:delimited) %>円</div>
-                  <% elsif category.budgets.sum(:price) == 0 && @sum > 0 %>
-                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%"><%= @sum.to_s(:delimited) %>円</div>
-                  <% elsif @sum*100/category.budgets.sum(:price) <= 100 %>
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @sum*100/category.budgets.sum(:price) %>%"><%= @sum.to_s(:delimited) %>円</div>
-                  <% else %>
-                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @sum*100/category.budgets.sum(:price) %>%"><%= @sum.to_s(:delimited) %>円</div>
-                  <% end %>
-                </div>
-              </td>
-              <td>
-                <% if (category.budgets.sum(:price) - @sum) <= 0 %>
-                  <div>0円</div>
-                <% else %>
-                  <div>
-                    <%= (category.budgets.sum(:price) - @sum).to_s(:delimited) %>円
-                  </div>
-                <% end %>
-              </td>
-            </tr>
+      <div class="p-3">
+        <h5><%= @today.month %>月の全体</h5>
+        <% if @budget_month_difference >= 0 %>
+          <h6 class="sub-price text-right">
+            残り<%= @budget_month_difference.to_s(:delimited) %>円
+            <i class="far fa-thumbs-up"></i>
+          </h6>
+        <% else %>
+          <h6 class="sub-price text-right text-danger">
+            <%= @budget_month_difference.to_s(:delimited) %>円オーバー
+            <i class="fas fa-fire-alt"></i>
+          </h6>
+        <% end %>
+
+        <div class="progress">
+          <% if @budget_month_ratio <= 100%>
+            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @budget_month_ratio %>%"></div>
+          <% else %>
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @budget_month_ratio %>%">予算オーバー</div>
           <% end %>
-        </tbody>
-      </table>
-    </div>
+        </div>
+      </div>
+
+      <div class="p-3">
+        <h5 class="pt-5">カテゴリー別支出状況</h5>
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th class="col-2">カテゴリー</th>
+              <th class="col-2">支出</th>
+              <th class="col-2">予算</th>
+              <th class="col-4">使ったお金</th>
+              <th class="col-2">残り使える金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @parent_categories.each do |category| %>
+              <tr>
+                <td><%= category.name %></td>
+                <td>
+                  <% @sum = 0 %>
+                  <% category.subtree.each do |category| %>
+                    <% category.pays.sum(:price) %>
+                    <% @sum += category.pays.sum(:price) %>
+                  <% end %>
+                  <%= @sum.to_s(:delimited) %>円
+                </td>
+                <td>
+                  <%= category.budgets.sum(:price).to_s(:delimited) %>円
+                </td>
+                <td>
+                  <div class="progress">
+                    <% if category.budgets.sum(:price) == 0 && @sum == 0 %>
+                      <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%"><%= @sum.to_s(:delimited) %>円</div>
+                    <% elsif category.budgets.sum(:price) == 0 && @sum > 0 %>
+                      <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%"><%= @sum.to_s(:delimited) %>円</div>
+                    <% elsif @sum*100/category.budgets.sum(:price) <= 100 %>
+                      <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <%= @sum*100/category.budgets.sum(:price) %>%"><%= @sum.to_s(:delimited) %>円</div>
+                    <% else %>
+                      <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @sum*100/category.budgets.sum(:price) %>%"><%= @sum.to_s(:delimited) %>円</div>
+                    <% end %>
+                  </div>
+                </td>
+                <td>
+                  <% if (category.budgets.sum(:price) - @sum) <= 0 %>
+                    <div>0円</div>
+                  <% else %>
+                    <div>
+                      <%= (category.budgets.sum(:price) - @sum).to_s(:delimited) %>円
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="actions text-center">
+        <%= link_to new_budget_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">予算を登録してください。</button>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -1,4 +1,5 @@
 class ReimbursementsController < ApplicationController
+  
   def index
     @pays = current_user.pays.all
     @pays_family = @pays.group(:family_id)

@@ -1,42 +1,58 @@
 <div class="container">
   <div class="main-content">
-    <h5>口座残高</h5>
-    <h3 class="main-price text-right">
-      <%= @balances_total.to_s(:delimited) %>円
-    </h3>
+    <% if !current_user.deposit.nil? %>
+      <h5>口座残高</h5>
+      <h3 class="main-price text-right">
+        <%= @balances_total.to_s(:delimited) %>円
+      </h3>
+    <% else %>
+      <div class="actions text-center">
+        <%= link_to new_deposits_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">預金を登録してください。</button>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <div class="main-content">
-    <h5>今月の収支</h5>
-    <div class="row text-right">
-      <div class="col-4">
-        <h6><%= @today.month %>月収入</h6>
+    <% if !current_user.deposit.nil? %>
+      <h5>今月の収支</h5>
+      <div class="row text-right">
+        <div class="col-4">
+          <h6><%= @today.month %>月収入</h6>
+        </div>
+        <div class="col-8">
+          <h5><%= @incomes_month_total.to_s(:delimited) %>円</h5>
+        </div>
       </div>
-      <div class="col-8">
-        <h5><%= @incomes_month_total.to_s(:delimited) %>円</h5>
+      <div class="row text-right">
+        <div class="col-4">
+          <h6><%= @today.month %>月支出</h6>
+        </div>
+        <div class="col-8">
+          <h5><%= @pays_month_total.to_s(:delimited) %>円</h5>
+        </div>
       </div>
-    </div>
-    <div class="row text-right">
-      <div class="col-4">
-        <h6><%= @today.month %>月支出</h6>
-      </div>
-      <div class="col-8">
-        <h5><%= @pays_month_total.to_s(:delimited) %>円</h5>
-      </div>
-    </div>
 
-    <div class="row border-top text-right">
-      <div class="col-4">
-        <h6 class="font-weight-bold"><%= @today.month %>月収支</p>
+      <div class="row border-top text-right">
+        <div class="col-4">
+          <h6 class="font-weight-bold"><%= @today.month %>月収支</p>
+        </div>
+        <div class="col-8">
+          <% if @balances_month_total < 0 %>
+            <h5 class="text-danger font-weight-bold"><i class="fas fa-fire-alt"></i> <%= @balances_month_total.to_s(:delimited) %>円</h5>
+          <% else %>
+            <h5 class="font-weight-bold"><%= @balances_month_total.to_s(:delimited) %>円</h5>
+          <% end %>
+        </div>
       </div>
-      <div class="col-8">
-        <% if @balances_month_total < 0 %>
-          <h5 class="text-danger font-weight-bold"><i class="fas fa-fire-alt"></i> <%= @balances_month_total.to_s(:delimited) %>円</h5>
-        <% else %>
-          <h5 class="font-weight-bold"><%= @balances_month_total.to_s(:delimited) %>円</h5>
+    <% else %>
+      <div class="actions text-center">
+        <%= link_to new_deposits_path do %>
+          <button type="button" class="btn btn-outline-secondary w-75 m-1">預金を登録してください。</button>
         <% end %>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <div class="main-content">
