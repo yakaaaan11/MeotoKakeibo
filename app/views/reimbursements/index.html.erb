@@ -3,7 +3,7 @@
     <h5>立替精算</h5>
     <div class="row d-flex align-items-end justify-content-center">
       <div class="px-2">
-        <%= attachment_image_tag(@husband, :image, :fill, 50, 50) %>
+        <%= attachment_image_tag(@husband, :image, size: "50x50") %>
       </div>
       <h6 class="d-flex align-items-end">共通財布から</h6>
       <h3 class="px-3"><%= @pays_husband.to_s(:delimited) %>円</h3>
@@ -17,7 +17,7 @@
 
     <div class="row d-flex align-items-end justify-content-center">
       <div class="px-2">
-        <%= attachment_image_tag(@wife, :image, :fill, 50, 50) %>
+        <%= attachment_image_tag(@wife, :image, size: "50x50") %>
       </div>
       <h6 class="d-flex align-items-end">共通財布から</h6>
       <h3 class="px-3"><%= @pays_wife.to_s(:delimited) %>円</h3>
@@ -33,7 +33,7 @@
   <div class="main-content">
     <div class="row">
       <h5 class="d-flex align-items-end justify-content-center pl-3">
-        <%= attachment_image_tag(@husband, :image, :fill, 50, 50) %>の未精算一覧
+        <%= attachment_image_tag(@husband, :image, size: "50x50") %>の未精算一覧
       </h5>
       <table class="table">
         <tr>
