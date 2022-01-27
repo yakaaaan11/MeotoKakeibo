@@ -96,7 +96,7 @@
               <td><%= balance.date %></td>
               <td><%= balance.category.name %></td>
               <td>
-                <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+                <%= attachment_image_tag(balance.family, :image, size: "50x50", fallback: "no-image-icon.jpg") %>
               </td>
               <td>-<%= balance.price.to_s(:delimited) %>円</td>
               <td>
@@ -125,7 +125,7 @@
               <td><%= balance.date %></td>
               <td>収入</td>
               <td>
-                <%= attachment_image_tag(balance.family, :image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+                <%= attachment_image_tag(balance.family, :image, size: "50x50", fallback: "no-image-icon.jpg") %>
               </td>
               <td><%= balance.price.to_s(:delimited) %>円</td>
               <td><i class="far fa-minus-square"></i></td>

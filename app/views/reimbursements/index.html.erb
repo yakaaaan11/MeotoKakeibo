@@ -51,7 +51,7 @@
                 <td><%= pay.date %></td>
                 <td><%= pay.category.name %></td>
                 <td>
-                  <%= attachment_image_tag(pay.family, :image, :fill, 40, 40) %>
+                  <%= attachment_image_tag(pay.family, :image, size: "50x50") %>
                 </td>
                 <td>-<%= pay.price.to_s(:delimited) %>円</td>
                 <td><%= pay.memo %></td>
@@ -71,7 +71,7 @@
   <div class="main-content">
     <div class="row">
       <h5 class="d-flex align-items-end justify-content-center pl-3">
-        <%= attachment_image_tag(@wife, :image, :fill, 50, 50) %>の未精算一覧
+        <%= attachment_image_tag(@wife, :image, size: "50x50") %>の未精算一覧
       </h5>
       <table class="table">
         <tr>
@@ -89,7 +89,7 @@
                 <td><%= pay.date %></td>
                 <td><%= pay.category.name %></td>
                 <td>
-                  <%= attachment_image_tag(pay.family, :image, :fill, 40, 40) %>
+                  <%= attachment_image_tag(pay.family, :image, size: "50x50") %>
                 </td>
                 <td>-<%= pay.price.to_s(:delimited) %>円</td>
                 <td><%= pay.memo %></td>
